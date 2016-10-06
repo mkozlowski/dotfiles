@@ -45,3 +45,16 @@ PROMPT_COMMAND=history_hook
 
 HISTSIZE=50000
 HISTFILESIZE=2000000
+
+# ~/bin on PATH
+if [ -d ~/bin ]; then
+	PATH=~/bin:$PATH
+fi
+
+# bash completion
+if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+	. /etc/bash_completion
+fi
+
+# git bash completion is needed for this PS1
+PS1='\[\033[01;34m\]\w\[\033[00m\]$(__git_ps1 "(%s)") \$ '
