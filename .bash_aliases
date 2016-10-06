@@ -22,24 +22,46 @@ alias qr='quilt refresh'
 alias v='vim'
 
 # navi
+function ___dot() {
+	if [ $# -gt 0 ]; then
+		. $@
+	else
+		cd && cd -
+	fi
+}
+alias .='___dot'
 alias ..='cd ..'
-alias x='cd && cd -'
+
+# misc
+alias f='find . -name'
+alias d='du -h --max-depth=1'
+alias t='tree'
 
 # grep wrapper
-mk_grep()
+function ___grep()
 {
-	if [ -z "$1" ]; then
-		echo "g <pattern> [where]"
+	if [ $# -eq 0 ]; then
+		echo "g <pattern> [where] [opts]"
 		return 1
 	fi
-	if [ -n "$2" ]; then
-		where="$2"
+	if [ $# -eq 1 ]; then
+		grep -Rns "$1" .
 	else
-		where="."
+		grep -Rns "$1" $*
 	fi
-	grep "$1" "$where" -Rns
 }
-alias g=mk_grep
+alias g='___grep'
+
+# parallel grep
+function ___parallel_grep()
+{
+	if [ $# -eq 0 ]; then
+		echo "gp <pattern>"
+		return 1
+	fi
+	find . -type f | parallel -k -j150% -n 1000 -m grep --color=always -Hns "$1" {}
+}
+alias gp='___parallel_grep'
 
 # secret stuff
 if [ -f ~/.bash_aliases_local ]; then
