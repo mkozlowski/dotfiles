@@ -1,2 +1,14 @@
+#
+# . .dotfiles/bash/ps1 [NAME]
+#
+
 # git bash completion is needed for this PS1
 PS1='\[\033[01;34m\]\w\[\033[00m\]$(__git_ps1 "(%s)") \$ '
+
+#
+# workaround for weird issue with dot '.' alias
+# and the way it handles arguments
+#
+if [ ! -f "$1" ]; then
+	PS1="\[\033[01;32m\]$1\[\033[00m\]:$PS1"
+fi
