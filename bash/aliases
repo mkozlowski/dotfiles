@@ -59,7 +59,7 @@ function ___parallel_grep()
 		echo "gp <pattern>"
 		return 1
 	fi
-	find . -type f | parallel -k -j150% -n 1000 -m grep --color=always -Hns "$1" {}
+	find . -type f | parallel -k -j150% -n 1000 -m grep --color=always -Hns \"$1\" {}
 }
 alias gp='___parallel_grep'
 
