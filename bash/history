@@ -39,7 +39,7 @@ END {
 '
 	history_last=${history_cur}
 }
-HISTCONTROL=erasedups:ignorespace
+HISTCONTROL=ignorespace:ignoredups:erasedups
 HISTTIMEFORMAT="%s "
 PROMPT_COMMAND=history_hook
 

@@ -1,7 +1,7 @@
 # git
 alias ga='git add'
 alias gb='git blame'
-alias gd='git diff'
+alias gd='git diff --ws-error-highlight=all'
 alias gdc='git diff --cached'
 alias gg='git grep -n'
 alias ggi='git grep -ni'
@@ -22,14 +22,7 @@ alias qr='quilt refresh'
 alias v='vim'
 
 # navi
-function ___dot() {
-	if [ $# -gt 0 ]; then
-		. $@
-	else
-		cd && cd -
-	fi
-}
-alias .='___dot'
+alias x='cd && cd -'
 alias ..='cd ..'
 
 # misc
@@ -51,17 +44,6 @@ function ___grep()
 	fi
 }
 alias g='___grep'
-
-# parallel grep
-function ___parallel_grep()
-{
-	if [ $# -eq 0 ]; then
-		echo "gp <pattern>"
-		return 1
-	fi
-	find . -type f | parallel -k -j150% -n 1000 -m grep --color=always -Hns \"$1\" {}
-}
-alias gp='___parallel_grep'
 
 # secret stuff
 if [ -f ~/.bash_aliases_local ]; then
